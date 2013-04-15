@@ -27,7 +27,8 @@ public:
 	int addPoint( float x, float y, float z);
 	int addPoints( vector<ofPoint>& points );
 	
-	int  triangulate();
+    int triangulate(ofMesh& dest);
+	int triangulate();
 	void draw();
 	
     ofMesh triangleMesh;

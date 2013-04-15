@@ -40,7 +40,12 @@ int ofxDelaunay::addPoints( vector<ofPoint>& points ){
     return vertices.size();
 }
 
-int ofxDelaunay::triangulate(){
+int ofxDelaunay::triangulate()
+{
+    return triangulate(triangleMesh);
+}
+
+int ofxDelaunay::triangulate(ofMesh& dest){
     
     if(vertices.size() < 3){
         return;
@@ -60,18 +65,18 @@ int ofxDelaunay::triangulate(){
 	Triangulate( nv, &vertices[0], &triangles[0], ntri );
 	
 	// copy triangle data to ofxDelaunayTriangle.
-	triangleMesh.clear();
+	dest.clear();
     
     //copy vertices
 	for (int i = 0; i < nv; i++){
-        triangleMesh.addVertex(ofVec3f(vertices[i].x,vertices[i].y,vertices[i].z));
+        dest.addVertex(ofVec3f(vertices[i].x,vertices[i].y,vertices[i].z));
     }
     
     //copy triagles
 	for(int i = 0; i < ntri; i++){
-		triangleMesh.addIndex(triangles[ i ].p1);
-		triangleMesh.addIndex(triangles[ i ].p2);
-		triangleMesh.addIndex(triangles[ i ].p3);
+		dest.addIndex(triangles[ i ].p1);
+		dest.addIndex(triangles[ i ].p2);
+		dest.addIndex(triangles[ i ].p3);
 	}
 	
     //erase the last three triangles
